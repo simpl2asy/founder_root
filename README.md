@@ -1,3 +1,19 @@
+# 📜 misson 
+<img width="1440" height="1221" alt="휘테커_misson" src="https://github.com/user-attachments/assets/35d2dada-6d1e-4913-83d2-64d6c67511c6" />
+
+📆 25.07.23(수) 랄프님의 코딩 미션
+  📜0. crud, 수정 페이지
+
+📆 25.07.24(목) 랄프님의 코딩 미션
+  📜1. app.js 딥스터디 ✅
+  📜2. 포스트맨에서 http://localhost:3005/ 하면 왜 Html로 나오는지 ✅
+  📜3. script 공부 (진행중)
+
+📆 25.07.25(금) 랄프님의 코딩 미션
+  📜4. app.js api 문서 작성 -> github 올리기 ✅
+
+---
+
 # 📘 Business Management RESTful API
 
 > Express.js + MongoDB(Mongoose) 기반의 사업 정보 등록/수정/삭제용 API 문서입니다.
