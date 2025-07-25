@@ -180,11 +180,48 @@ node app.js
 
 ---
 
-## 🧠 설계 포인트
+## 📁 프로젝트 구조 설명 (`founder_root/`)
 
-* 모든 데이터 조작(POST, PUT, DELETE)은 JSON 기반으로 처리
-* `/api` 경로는 프론트 없이 외부 시스템 연동용 API 전용
-* `/new_biz`, `/business/:id/edit`은 HTML 화면 제공용
-* REST 원칙에 따라 리소스 중심 URI 구성
+```
+founder_root/
+├── app.js                    ← 🧠 메인 서버 진입점 (라우팅 + DB 연결 설정)
+├── models/
+│   └── business.js           ← 🗂️ Mongoose 모델 정의 (Business 데이터 스키마)
+├── public/
+│   └── js/
+│       └── input.js         ← 🧾 클라이언트용 JS (폼 제출 시 동작 처리)
+├── views/
+│   ├── input.ejs             ← 📝 사업 정보 입력 화면 (HTML form)
+│   ├── business_list.ejs     ← 📃 전체 사업 리스트 표시 화면
+│   └── business_edit.ejs     ← ✏️ 특정 사업 정보 수정 화면
+├── package.json              ← 📦 의존성 및 프로젝트 메타정보
+├── package-lock.json         ← 📦 정확한 버전 잠금 파일
+└── SUMMARY.md                ← 📄 폴더 및 파일별 설명 목차 파일
+```
+
+---
+
+## 🔍 주요 폴더 및 파일 기능 요약
+
+| 경로                        | 설명                                                                                 |
+| ------------------------- | ---------------------------------------------------------------------------------- |
+| `app.js`                  | Express 서버의 **핵심 진입점**. 서버 실행, 미들웨어 설정, MongoDB 연결 및 라우팅 등록을 처리함                   |
+| `models/business.js`      | MongoDB와 연결되는 **Business 모델 정의 파일**. 데이터 구조(schema)를 설계하고 DB에 연동되는 Mongoose 모델을 만듦 |
+| `public/js/input.js`      | HTML `form`에서 정보를 수정/제출할 때 동작하는 **클라이언트용 JavaScript**. 서버로 PUT 요청 전송 처리            |
+| `views/input.ejs`         | 사용자로부터 사업 정보를 **입력받는 화면 (HTML Form)**                                              |
+| `views/business_list.ejs` | 등록된 모든 사업 정보를 **목록 형태로 보여주는 페이지**                                                  |
+| `views/business_edit.ejs` | 특정 사업 정보를 수정할 수 있도록 하는 **수정 전용 폼 페이지**                                             |
+| `package.json`            | 프로젝트의 **의존성, 스크립트, 이름** 등이 정의됨. npm이 사용하는 메타데이터                                    |
+| `package-lock.json`       | 정확한 버전의 패키지를 기록하는 파일 (프로젝트 실행 시 동일한 환경 보장)                                         |
+| `SUMMARY.md`              | 📌 각 파일 및 폴더의 **구조 설명 목차**를 정리한 문서 (ReadMe 보조용)                                    |
+
+---
+
+## 📌 전체 흐름 예시
+
+1. 사용자가 `/new_biz`에서 `input.ejs`로 접속 → `form` 작성
+2. 제출 시 `input.js`가 JavaScript로 서버에 POST/PUT 요청 전송
+3. `app.js`가 요청을 받아서 `models/business.js`의 모델로 DB 처리
+4. 결과는 `business_list.ejs` 또는 `business_edit.ejs` 화면에 출력
 
 ---
