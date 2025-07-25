@@ -8,6 +8,7 @@
 
 ```
 http://localhost:3005
+
 ```
 
 ---
@@ -46,8 +47,8 @@ http://localhost:3005
   "businesses": [
     {
       "_id": "64c4bc3e2d...",
-      "companyName": "에브릿데이",
-      "businessItem": "스마트 간식 서비스",
+      "companyName": "파운더",
+      "businessItem": "초기 창업자 교육 플랫폼",
       "industry": ["IT", "Education"]
     }
   ]
@@ -81,12 +82,12 @@ Content-Type: application/json
 
 ```json
 {
-  "companyName": "에브릿데이",
-  "businessItem": "간식 큐레이션",
+  "companyName": "파운더",
+  "businessItem": "초기 창업자 교육 플랫폼",
   "problem": "사무실 공급 문제",
   "solution": "스마트 매칭",
   "targetMarket": "B2B",
-  "competitiveAdvantage": "물류 자동화",
+  "competitiveAdvantage": "AI 기반 맞춤형 진단 및 교육 추천 시스템",
   "businessStage": "시드",
   "desiredInvestment": "5천만 원",
   "industry": ["IT", "Education"]
@@ -98,7 +99,7 @@ Content-Type: application/json
 ```json
 {
   "_id": "64c4bc3e2d...",
-  "companyName": "에브릿데이",
+  "companyName": "파운더",
   ...
 }
 ```
