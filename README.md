@@ -1,8 +1,3 @@
-# founder_root
-휘테커 파운더 프로젝트
-
----
-
 # 📘 Business Management RESTful API
 
 > Express.js + MongoDB(Mongoose) 기반의 사업 정보 등록/수정/삭제용 API 문서입니다.
