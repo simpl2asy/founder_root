@@ -1,4 +1,4 @@
-# 📜 misson 
+# 📜 warm up misson 
 <img width="1440" height="1221" alt="휘테커_misson" src="https://github.com/user-attachments/assets/35d2dada-6d1e-4913-83d2-64d6c67511c6" />
 
 📆 25.07.23(수) 랄프님의 코딩 미션
