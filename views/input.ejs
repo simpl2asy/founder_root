@@ -1,0 +1,230 @@
+<style>
+  body {
+    background: #f7f8fa;
+    font-family: "Segoe UI", "Apple SD Gothic Neo", Arial, sans-serif;
+  }
+  .form-container {
+    max-width: 600px;
+    margin: 40px auto;
+    background: #fff;
+    border-radius: 16px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 32px 36px 24px 36px;
+  }
+  h2 {
+    text-align: center;
+    color: #2d3a4b;
+    margin-bottom: 28px;
+  }
+  fieldset {
+    border: none;
+    margin-bottom: 24px;
+    padding: 0;
+  }
+  legend {
+    font-weight: bold;
+    color: #3b4a5a;
+    margin-bottom: 10px;
+    font-size: 1.1em;
+  }
+  label {
+    display: block;
+    margin-top: 14px;
+    margin-bottom: 4px;
+    color: #4a5a6a;
+    font-size: 0.98em;
+  }
+  input[type="text"],
+  select {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 1em;
+    background: #f9fafb;
+    margin-bottom: 6px;
+    transition: border 0.2s;
+  }
+  input[type="text"]:focus,
+  select:focus {
+    border: 1.5px solid #4f8cff;
+    outline: none;
+    background: #fff;
+  }
+  .form-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 28px;
+  }
+  button[type="submit"] {
+    background: linear-gradient(90deg, #4f8cff 60%, #6ed6ff 100%);
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 28px;
+    font-size: 1.08em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(79, 140, 255, 0.08);
+    transition: background 0.2s;
+  }
+  button[type="submit"]:hover {
+    background: linear-gradient(90deg, #357ae8 60%, #4f8cff 100%);
+  }
+  button[type="button"] {
+    background: #e5e7eb;
+    color: #374151;
+    border: none;
+    border-radius: 6px;
+    padding: 12px 20px;
+    font-size: 1em;
+    cursor: pointer;
+    margin-left: 8px;
+    transition: background 0.2s;
+  }
+  button[type="button"]:hover {
+    background: #cbd5e1;
+  }
+  .load-btn {
+    margin-top: 10px;
+    background: #f3f4f6;
+    color: #4f8cff;
+    border: 1px solid #d1d5db;
+    padding: 7px 16px;
+    border-radius: 5px;
+    font-size: 0.97em;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+  }
+  .load-btn:hover {
+    background: #e0e7ef;
+    color: #357ae8;
+  }
+</style>
+
+<div class="form-container">
+  <form id="business-form">
+    <h2>사업 정보 입력</h2>
+
+    <!-- 기본 정보 -->
+    <fieldset>
+      <legend>기본 정보</legend>
+
+      <label>회사명</label>
+      <input type="text" name="companyName" required />
+
+      <label>사업 아이템 (간략 설명)</label>
+      <input type="text" name="businessItem" required />
+
+      <button type="button" class="load-btn">기존 정보 불러오기</button>
+    </fieldset>
+
+    <!-- 사업 상세 -->
+    <fieldset>
+      <legend>사업 상세</legend>
+
+      <label>해결하려는 문제</label>
+      <input type="text" name="problem" required />
+
+      <label>솔루션</label>
+      <input type="text" name="solution" required />
+
+      <label>타겟 시장</label>
+      <input type="text" name="targetMarket" required />
+
+      <label>경쟁 우위</label>
+      <input type="text" name="competitiveAdvantage" required />
+    </fieldset>
+
+    <!-- 매칭 관련 정보 -->
+    <fieldset>
+      <legend>매칭 관련 정보</legend>
+
+      <label>사업 단계</label>
+      <input type="text" name="businessStage" required />
+
+      <label>희망 투자 유치 금액</label>
+      <input type="text" name="desiredInvestment" required />
+
+      <label>산업군 (복수 선택 가능)</label>
+      <select name="industry" multiple size="5">
+        <option value="it">IT</option>
+        <option value="healthcare">Healthcare</option>
+        <option value="manufacturing">Manufacturing</option>
+        <option value="education">Education</option>
+        <option value="finance">Finance</option>
+      </select>
+    </fieldset>
+
+    <!-- 하단 버튼 -->
+    <div class="form-actions">
+      <button type="submit">사업 정보로 AC 찾기</button>
+      <button type="button" onclick="window.history.back()">
+        취소하고 뒤로가기
+      </button>
+    </div>
+  </form>
+</div>
+
+<!-- <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("business-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        if (data[key]) {
+          if (!Array.isArray(data[key])) data[key] = [data[key]];
+          data[key].push(value);
+        } else {
+          data[key] = value;
+        }
+      });
+      try {
+        const res = await fetch("/business", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!res.ok) throw new Error("Failed to save");
+        alert("저장 성공");
+        window.location.href = "/business";
+      } catch (err) {
+        console.error(err);
+        alert("에러 발생: " + err.message);
+      }
+    });
+  });
+</script> -->
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("business-form");
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const formData = new FormData(form);
+      const data = {};
+      formData.forEach((value, key) => {
+        if (data[key]) {
+          if (!Array.isArray(data[key])) data[key] = [data[key]];
+          data[key].push(value);
+        } else {
+          data[key] = value;
+        }
+      });
+      const res = await fetch("/", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+      if (!res.ok) {
+        throw new Error("Failed to save");
+        alert("에러 발생: " + err.message);
+      } else {
+        alert("저장 성공");
+        window.location.href = "/";
+      }
+    });
+  });
+</script>

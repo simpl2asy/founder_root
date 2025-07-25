@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>사업 정보 목록</title>
+  </head>
+  <body>
+    <h1>사업 정보 목록</h1>
+    <ul>
+      <% businesses.forEach(biz => { %>
+      <li id="biz-<%= biz._id %>">
+        <strong><%= biz.companyName %></strong>
+        (<%= biz.businessItem %>)
+
+        <a href="/business/<%= biz._id %>/edit">✏️</a>
+
+        <button class="delete-btn" data-id="<%= biz._id %>">X</button>
+      </li>
+      <% }) %>
+    </ul>
+    <a href="/new_biz">새 사업 정보 입력</a>
+
+    <script>
+      // 삭제 버튼 스크립트 (기존과 동일)
+      const deleteButtons = document.querySelectorAll(".delete-btn");
+
+      deleteButtons.forEach((button) => {
+        button.addEventListener("click", async (e) => {
+          const bizId = e.target.dataset.id;
+
+          if (confirm("정말로 이 항목을 삭제하시겠습니까?")) {
+            try {
+              const response = await fetch(`/business/${bizId}`, {
+                method: "DELETE",
+              });
+
+              if (!response.ok) {
+                throw new Error("삭제에 실패했습니다.");
+              }
+
+              document.getElementById(`biz-${bizId}`).remove();
+              alert("삭제되었습니다.");
+            } catch (err) {
+              console.error(err);
+              alert(err.message);
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

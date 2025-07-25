@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <title>사업 정보 수정</title>
+  </head>
+  <body>
+    <h1><%= business.companyName %> 정보 수정</h1>
+
+    <form id="edit-form">
+      <label for="companyName">회사명</label><br />
+      <input
+        type="text"
+        id="companyName"
+        name="companyName"
+        value="<%= business.companyName %>"
+        required
+      /><br /><br />
+
+      <label for="businessItem">사업 아이템</label><br />
+      <input
+        type="text"
+        id="businessItem"
+        name="businessItem"
+        value="<%= business.businessItem %>"
+        required
+      /><br /><br />
+
+      <button type="submit">수정 완료</button>
+      <a href="/business">취소</a>
+    </form>
+
+    <script>
+      const form = document.getElementById("edit-form");
+      // EJS 문법을 통해 서버에서 받은 ID를 자바스크립트 변수로 저장합니다.
+      const bizId = "<%= business._id %>";
+
+      form.addEventListener("submit", async (e) => {
+        e.preventDefault(); // 폼의 기본 제출 동작(새로고침)을 막습니다.
+
+        const formData = new FormData(form);
+        // 폼 데이터를 자바스크립트 객체로 변환합니다.
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+          // 서버의 PUT API로 수정 요청을 보냅니다.
+          const response = await fetch(`/business/${bizId}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+          });
+
+          if (!response.ok) {
+            throw new Error("수정에 실패했습니다.");
+          }
+
+          alert("성공적으로 수정되었습니다.");
+          // 수정 완료 후 목록 페이지로 이동합니다.
+          window.location.href = "/";
+        } catch (err) {
+          console.error(err);
+          alert(err.message);
+        }
+      });
+    </script>
+  </body>
+</html>
+
+<%# 브라우저에서 form 데이터를 JavaScript 객체로 만들고, 이를 비동기 방식으로
+서버에 PUT 요청하여 수정하는 전체 흐름을 이해하는 것 이게 script 부분의
+핵심이고, 너와 사수가 이야기한 객체화, body, 미들웨어, fetch, 비동기 통신 개념과
+완전히 연결된다. %>
